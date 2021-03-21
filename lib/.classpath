@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="output" path="bin/default"/>
+	<classpathentry output="bin/main" kind="src" path="src/main/groovy">
+		<attributes>
+			<attribute name="gradle_scope" value="main"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry output="bin/main" kind="src" path="src/main/resources">
+		<attributes>
+			<attribute name="gradle_scope" value="main"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry output="bin/test" kind="src" path="src/test/groovy">
+		<attributes>
+			<attribute name="gradle_scope" value="test"/>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry output="bin/test" kind="src" path="src/test/resources">
+		<attributes>
+			<attribute name="gradle_scope" value="test"/>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy/3.0.7/a11a4ad5d63aa64d8c2ce7850ca3df6a85a31e4a/groovy-3.0.7-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy/3.0.7/6ad9be0404fea20db26f2a9834bbc9e7a8451cf6/groovy-3.0.7.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.30/71a1fdefa224da50f1db6306ce609981e20186c9/slf4j-api-1.7.30-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.30/b5a4b6d16ab13e34a88fae84c35cd5d68cac922c/slf4j-api-1.7.30.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.spockframework/spock-core/2.0-M4-groovy-3.0/33f791d93ced5f24496f9bd94a9cdfab5599c6c4/spock-core-2.0-M4-groovy-3.0-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.spockframework/spock-core/2.0-M4-groovy-3.0/55f339fb6a11e1246087a46c96e6af7323f991a8/spock-core-2.0-M4-groovy-3.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-testkit/1.7.0/5f1fab9491bbcc2c62ee98becbab2b7c3111d20/junit-platform-testkit-1.7.0-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-testkit/1.7.0/881df8c3618ad12a06fc872ea7e6fd7aa6e48856/junit-platform-testkit-1.7.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-launcher/1.7.0/503b02634a84790ed5c8152c6bb57449af4bac9c/junit-platform-launcher-1.7.0-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-launcher/1.7.0/cfd2d9c8b6ff9f3880faad828454cd0166bc12d7/junit-platform-launcher-1.7.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.7.0/987bee3f7c9ae0c219bae82e3cfe073708cbadad/junit-platform-engine-1.7.0-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.7.0/eadb73c5074a4ac71061defd00fc176152a4d12c/junit-platform-engine-1.7.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.7.0/a382c78ca35b240e3b88b4d68ef6884a365631f0/junit-platform-commons-1.7.0-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.7.0/84e309fbf21d857aac079a3c1fffd84284e1114d/junit-platform-commons-1.7.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest/2.2/a0a13cfc629420efb587d954f982c4c6a100da25/hamcrest-2.2-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest/2.2/1820c0968dba3a11a1b30669bb1f01978a91dedc/hamcrest-2.2.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/19.0.0/46283be41e938dba9ac928ab98de7be6f7a436f1/annotations-19.0.0-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/19.0.0/efbff6752f67a7c9de3e4251c086a88e23591dfd/annotations-19.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/9.0/4ebd60354f49eaac2afe314ae2c7f21191807473/asm-9.0-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/9.0/af582ff60bc567c42d931500c3fdc20e0141ddf9/asm-9.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.10.16/3051f6fa52d17ce12b3471b6ad51534785f18e30/byte-buddy-1.10.16-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.10.16/171d6a839d86aab993fc0dbf619a1d075b8a0bc/byte-buddy-1.10.16.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/cglib/cglib-nodep/3.3.0/87d69a2fe541243bee05d46ac2d4ce02e83d9835/cglib-nodep-3.3.0-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/cglib/cglib-nodep/3.3.0/87271c95d5bc9e37e4981c9593ff14d470b6684b/cglib-nodep-3.3.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/3.1/36e4b278b98654980a51e36ef60b186a757ed3d7/objenesis-3.1-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/3.1/48f12deaae83a8dfc3775d830c9fd60ea59bbbca/objenesis-3.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.0/f3c15fe970af864390c8d0634c9f16aca1b064a8/apiguardian-api-1.1.0-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.0/fc9dff4bb36d627bdc553de77e1f17efd790876c/apiguardian-api-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/41d55b3c2254de9837b4ec8923cbd371b8a7eab5/opentest4j-1.2.0-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/28c11eb91f9b6d8e200631d46e20a7f407f2a046/opentest4j-1.2.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/home/d7392/.gradle/caches/modules-2/files-2.1/org.assertj/assertj-core/3.16.1/f9dc10a74d690a0bbe2a0c07a4fa33b13db867bb/assertj-core-3.16.1-sources.jar" kind="lib" path="/home/d7392/.gradle/caches/modules-2/files-2.1/org.assertj/assertj-core/3.16.1/6e772120aff69ca3d1583b3d1b36b7529de43ba1/assertj-core-3.16.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+</classpath>
