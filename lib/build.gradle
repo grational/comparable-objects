@@ -8,6 +8,8 @@
 plugins {
 	// to use the 'api' keyword in dependencies
 	id 'java-library'
+	// required by jitpack for libraries
+	id 'maven'
 	// support for groovy
 	id 'groovy'
 	// autogenerate eclipse project files
