@@ -7,12 +7,12 @@ import spock.lang.*
  * @author d7392
  * @date 21-03-2021 06.07
  */
-class AggregatorUSpec extends Specification {
+class AggregationListUSpec extends Specification {
 
 	@Unroll
 	def "Should be capable of append different elements to the internal list"() {
 		given: 'instance an aggregator'
-			def aggregator = new Object() as Aggregator
+			def aggregator = new Object() as AggregationList
 		and: 'initialize it'
 			aggregator.list = initialList
 		when:

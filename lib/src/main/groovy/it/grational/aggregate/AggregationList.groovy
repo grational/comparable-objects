@@ -1,6 +1,6 @@
 package it.grational.aggregate
 
-trait Aggregator {
+trait AggregationList {
 	
 	List list
 
