@@ -29,4 +29,27 @@ class AggregationListUSpec extends Specification {
 			['a', 'b', 'c'] | 'b'    || ['a', 'bb', 'c']
 	}
 
+	@Unroll
+	def "Should be capable of summing itself with another AggregationList"() {
+		given: 'instance an aggregator'
+			def left = new Object() as AggregationList
+		and:
+			def right = new Object() as AggregationList
+		and: 'initialize it'
+			left.list = leftList
+			right.list = rightList
+		when:
+			left + right
+		then:
+			left.list == expected
+		where:
+			leftList        | rightList            || expected
+			// numbers
+			[1, 2, 3]       | [4, 5, 6]            || [1, 2, 3, 4, 5, 6]
+			[1, 2, 3]       | [1, 2]               || [4, 2, 3]
+			// letters
+			['a', 'b', 'c'] | ['d', 'e', 'f']      || ['a', 'b', 'c', 'd', 'e', 'f']
+			['a', 'b', 'c'] | ['a', 'b', 'c', 'd'] || ['aa', 'bb', 'cc', 'd']
+	}
+
 }
