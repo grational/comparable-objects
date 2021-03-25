@@ -9,9 +9,18 @@ import spock.lang.*
  */
 class AggregationListUSpec extends Specification {
 
+	def "Should be capable of adding one element without any initialization"() {
+		given: 'an instance of an AggregationList'
+			def aggregator = new Object() as AggregationList
+		when:
+			aggregator << 1
+		then:
+			aggregator.list == [1]
+	}
+
 	@Unroll
 	def "Should be capable of append different elements to the internal list"() {
-		given: 'instance an aggregator'
+		given: 'an instance of an AggregationList'
 			def aggregator = new Object() as AggregationList
 		and: 'initialize it'
 			aggregator.list = initialList

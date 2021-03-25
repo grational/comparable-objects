@@ -3,7 +3,7 @@ package it.grational.aggregate
 trait AggregationList {
 	
 	@Delegate
-	List list
+	List list = []
 
 	def leftShift(def elem) {
 		Integer idx = this.list.findIndexOf { it == elem }
