@@ -14,7 +14,7 @@ trait AggregationList {
 		}
 	}
 
-	def plus(AggregationList other) {
+	List aggregate(AggregationList other) {
 		def result = []
 		this.list.eachWithIndex { elem, idx -> 
 			result[idx] = elem

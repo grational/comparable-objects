@@ -30,7 +30,7 @@ class AggregationListUSpec extends Specification {
 	}
 
 	@Unroll
-	def "Should be capable of summing itself with another AggregationList"() {
+	def "Should be capable of aggregating with another AggregationList"() {
 		given: 'instance an aggregator'
 			def left = new Object() as AggregationList
 		and:
@@ -39,7 +39,7 @@ class AggregationListUSpec extends Specification {
 			left.list = leftList
 			right.list = rightList
 		when:
-			def result = left + right
+			def result = left.aggregate(right)
 		then:
 			result == expected
 		where:
