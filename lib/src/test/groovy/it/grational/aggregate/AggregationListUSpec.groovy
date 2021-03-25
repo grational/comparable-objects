@@ -20,13 +20,13 @@ class AggregationListUSpec extends Specification {
 		then:
 			aggregator.list == expected
 		where:
-			initialList | newElement || expected
+			initialList     | newElement || expected
 			// numbers
-			[1, 2, 3]   | 4          || [1, 2, 3, 4]
-			[1, 2, 3]   | 2          || [1, 4, 3]
+			[1, 2, 3]       | 4          || [1, 2, 3, 4]
+			[1, 2, 3]       | 2          || [1, 4, 3]
 			// letters
-			['a', 'b', 'c'] | 'd'    || ['a', 'b', 'c', 'd']
-			['a', 'b', 'c'] | 'b'    || ['a', 'bb', 'c']
+			['a', 'b', 'c'] | 'd'        || ['a', 'b', 'c', 'd']
+			['a', 'b', 'c'] | 'b'        || ['a', 'bb', 'c']
 	}
 
 	@Unroll
@@ -39,17 +39,19 @@ class AggregationListUSpec extends Specification {
 			left.list = leftList
 			right.list = rightList
 		when:
-			left + right
+			def result = left + right
 		then:
-			left.list == expected
+			result == expected
 		where:
 			leftList        | rightList            || expected
 			// numbers
 			[1, 2, 3]       | [4, 5, 6]            || [1, 2, 3, 4, 5, 6]
-			[1, 2, 3]       | [1, 2]               || [4, 2, 3]
+			[1, 2, 3]       | [1, 2]               || [2, 4, 3]
+			[1, 2, 3]       | [1, 2, 1]            || [3, 4, 3]
 			// letters
 			['a', 'b', 'c'] | ['d', 'e', 'f']      || ['a', 'b', 'c', 'd', 'e', 'f']
 			['a', 'b', 'c'] | ['a', 'b', 'c', 'd'] || ['aa', 'bb', 'cc', 'd']
+			['a', 'b', 'c'] | ['a', 'b', 'a', 'd'] || ['aaa', 'bb', 'c', 'd']
 	}
 
 }

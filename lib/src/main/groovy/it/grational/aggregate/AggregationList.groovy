@@ -2,6 +2,7 @@ package it.grational.aggregate
 
 trait AggregationList {
 	
+	@Delegate
 	List list
 
 	def leftShift(def elem) {
@@ -9,14 +10,18 @@ trait AggregationList {
 		if ( idx >= 0 ) {
 			this.list[idx] += elem
 		} else {
-			this.list += elem
+			this.list.add(elem)
 		}
 	}
 
 	def plus(AggregationList other) {
-		other.list.each { elem ->
-			this << elem
+		def result = []
+		this.list.eachWithIndex { elem, idx -> 
+			result[idx] = elem
+			other.list.grep { it == elem }?.each { result[idx] += it }
 		}
+		result.addAll(other.list - this.list)
+		return result
 	}
 
 }
