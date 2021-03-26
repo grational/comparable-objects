@@ -2,10 +2,10 @@ package it.grational.aggregate
 
 trait AggregationList {
 	
-	@Delegate
+	@Delegate(excludes=['equals','canEqual'])
 	List list = []
 
-	def leftShift(def elem) {
+	def leftShift(elem) {
 		Integer idx = this.list.findIndexOf { it == elem }
 		if ( idx >= 0 ) {
 			this.list[idx] += elem
