@@ -2,7 +2,6 @@ package it.grational.aggregate
 
 trait AggregationList {
 	
-	@Delegate(excludes=['equals','canEqual'])
 	List list = []
 
 	def leftShift(elem) {
