@@ -39,6 +39,19 @@ class AggregationListUSpec extends Specification {
 			['a', 'b', 'c'] | 'b'        || ['a', 'bb', 'c']
 	}
 
+	def "Should refuse to add two different object"() {
+		given:
+			def a = new IdObject(id: 'a')
+		and:
+			def b = new IdObject(id: 'b')
+		when:
+			a + b
+		then:
+			def exception = thrown(IllegalArgumentException)
+			exception.message == "[IdObject] Cannot add different objects!"
+	}
+
+
 	@Unroll
 	def "Should be capable of summing with another AggregationList"() {
 		given:

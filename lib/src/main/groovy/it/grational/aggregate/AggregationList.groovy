@@ -13,16 +13,6 @@ trait AggregationList implements Cloneable {
 		}
 	}
 
-	List aggregate(AggregationList other) {
-		def result = []
-		this.list.eachWithIndex { elem, idx -> 
-			result[idx] = elem
-			other.list.grep { it == elem }?.each { result[idx] += it }
-		}
-		result.addAll(other.list - this.list)
-		return result
-	}
-
 	def plus(AggregationList other) {
 		if ( this != other )
 			throw new IllegalArgumentException("[${this.class.simpleName}] Cannot add different objects!")
@@ -32,6 +22,16 @@ trait AggregationList implements Cloneable {
 		AggregationList result = this.clone()
 		this.list = temp
 
+		return result
+	}
+
+	List aggregate(AggregationList other) {
+		def result = []
+		this.list.eachWithIndex { elem, idx -> 
+			result[idx] = elem
+			other.list.grep { it == elem }?.each { result[idx] += it }
+		}
+		result.addAll(other.list - this.list)
 		return result
 	}
 
