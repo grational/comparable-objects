@@ -43,7 +43,7 @@ project.with {
 }
 // [crosscompile] source and target java version
 allprojects {
-	sourceCompatibility = '11.0.10'
+	sourceCompatibility = '1.8'
 	targetCompatibility = sourceCompatibility
 }
 
