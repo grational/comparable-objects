@@ -102,4 +102,16 @@ task funTest(type: Test) {
 gradle.startParameter.excludedTaskNames += "uniTest"
 gradle.startParameter.excludedTaskNames += "intTest"
 gradle.startParameter.excludedTaskNames += "funTest"
+
+// required to work with jitpack.io
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			groupId = 'com.github.grational'
+			artifactId = 'comparable-objects'
+			version = scmVersion.version // '0.5.0' (remove -SNAPSHOT for releases)
+			from components.java
+		}
+	}
+}
 // vim: ft=groovy:fdm=indent
