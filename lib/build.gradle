@@ -9,7 +9,7 @@ plugins {
 	// to use the 'api' keyword in dependencies
 	id 'java-library'
 	// required by jitpack for libraries
-	id 'maven'
+	id 'maven-publish'
 	// support for groovy
 	id 'groovy'
 	// autogenerate eclipse project files
@@ -18,45 +18,40 @@ plugins {
 	id 'build-dashboard'
 	// view of the project (jars used, navigable source tree)
 	id 'project-report'
-	// groovy code linter
-	id 'codenarc'
-	id 'net.saliman.cobertura' version '4.0.0'
 	// awesome git tag / gradle version integration
-	id 'pl.allegro.tech.build.axion-release' version '1.12.1'
+	id 'pl.allegro.tech.build.axion-release' version '1.18.18'
 }
 
 // [general] configuration
 project.ext {
-	groovyVersion   = '3.0.7'
-	gradleVersion   = '6.8.3'
-	spockVersion    = '2.0-M4-groovy-3.0'
-	codenarcVersion = '2.0.0'
-	slf4jVersion    = '1.7.30'
-
+	groovyVersion = '4.0.26'
+	spockVersion  = '2.3-groovy-4.0'
+	slf4jVersion  = '2.0.17'
 }
 
 project.with {
 	//project.name is set in the settings.gradle with rootProject.name
-	group                 "it.grational.compare"
-	version               scmVersion.version
-	description           "Classes used to ease objects comparisons"
+	group       = "it.grational.compare"
+	version     = scmVersion.version
+	description = "Classes used to ease objects comparisons"
 }
 // [crosscompile] source and target java version
-allprojects {
-	sourceCompatibility = '1.8'
-	targetCompatibility = sourceCompatibility
+java {
+	sourceCompatibility = JavaVersion.toVersion('21')
+	targetCompatibility = JavaVersion.toVersion('21')
 }
 
+
 repositories {
-	jcenter()
+	mavenCentral()
 
 	// leverage github as a maven repository
-	maven { url 'https://jitpack.io' }
+	maven { url = 'https://jitpack.io' }
 }
 
 dependencies {
 	// Groovy language support
-	api "org.codehaus.groovy:groovy:$groovyVersion"
+	api "org.apache.groovy:groovy:$groovyVersion"
 
 	// Slf4j dependencies
 	implementation "org.slf4j:slf4j-api:$slf4jVersion"
@@ -66,38 +61,10 @@ dependencies {
 	testImplementation "org.spockframework:spock-core:$spockVersion"
 }
 
-// codenarc groovy source analyses
-codenarc{
-	toolVersion = "$codenarcVersion"
-
-	codenarcMain {
-		configFile = rootProject.file('conf/codenarc/ruleset.groovy')
-		exclude "**/package-info.*"
-		ignoreFailures true       // does not block builds
-		maxPriority1Violations 0
-		maxPriority2Violations 10
-		maxPriority3Violations 20
-	}
-	codenarcTest {
-		configFile = rootProject.file('conf/codenarc/ruleset-test.groovy')
-		ignoreFailures true
-		maxPriority1Violations 0
-		maxPriority2Violations 10
-		maxPriority3Violations 20
-	}
-}
-
-
-
 // [tasks] configuration //
 jar {
 	// execute check task when create the jar
 	dependsOn 'check'
-}
-
-check {
-	// create the code coverage report
-	dependsOn 'cobertura'
 }
 
 release {

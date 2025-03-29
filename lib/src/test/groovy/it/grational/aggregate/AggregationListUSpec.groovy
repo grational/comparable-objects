@@ -51,7 +51,6 @@ class AggregationListUSpec extends Specification {
 			exception.message == "[IdObject] Cannot add different objects!"
 	}
 
-
 	@Unroll
 	def "Should be capable of summing with another AggregationList"() {
 		given:

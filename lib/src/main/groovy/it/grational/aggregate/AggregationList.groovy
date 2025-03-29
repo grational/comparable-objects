@@ -35,4 +35,8 @@ trait AggregationList implements Cloneable {
 		return result
 	}
 
+	@Override
+	Object clone() {
+		return super.clone()
+	}
 }
