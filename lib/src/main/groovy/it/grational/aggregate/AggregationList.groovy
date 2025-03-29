@@ -37,6 +37,9 @@ trait AggregationList implements Cloneable {
 
 	@Override
 	Object clone() {
-		return super.clone()
+		AggregationList cloned = (AggregationList) super.clone()
+		// Deep copy della lista
+		cloned.list = new ArrayList(this.list)
+		return cloned
 	}
 }
