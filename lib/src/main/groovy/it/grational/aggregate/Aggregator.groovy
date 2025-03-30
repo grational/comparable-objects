@@ -13,7 +13,7 @@ import groovy.transform.EqualsAndHashCode
 	includePackage = false
 )
 @EqualsAndHashCode(includeFields = true, includes='id')
-class Aggregator implements AggregationList {
+class Aggregator<T> implements AggregationList<T> {
 	
 	private final String id
 	final static String DEFAULT_ID = 'default'
@@ -23,8 +23,8 @@ class Aggregator implements AggregationList {
 	 * 
 	 * @param initialList The initial list of elements
 	 */
-	Aggregator(List ls = []) {
-		this (
+	Aggregator(List<T> ls = []) {
+		this(
 			DEFAULT_ID,
 			ls
 		)
@@ -36,9 +36,9 @@ class Aggregator implements AggregationList {
 	 * @param id Identifier for this aggregator
 	 * @param initialList The initial list of elements
 	 */
-	Aggregator (
+	Aggregator(
 		String id = DEFAULT_ID,
-		List ls = []
+		List<T> ls = []
 	) {
 		this.id = id ?: DEFAULT_ID
 		this.list = ls ?: []

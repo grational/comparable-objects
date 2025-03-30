@@ -12,7 +12,7 @@ class AggregationListUSpec extends Specification {
 
 	def "Should be capable of adding one element without any initialization"() {
 		given: 'an instance of an AggregationList'
-			def aggregator = new Object() as AggregationList
+			def aggregator = new Object() as AggregationList<Integer>
 		when:
 			aggregator << 1
 		then:
@@ -22,7 +22,7 @@ class AggregationListUSpec extends Specification {
 	@Unroll
 	def "Should be capable of append different elements to the internal list"() {
 		given: 'an instance of an AggregationList'
-			def aggregator = new Object() as AggregationList
+			def aggregator = new Object() as AggregationList<Integer>
 		and: 'initialize it'
 			aggregator.list = initialList
 		when:
@@ -34,6 +34,20 @@ class AggregationListUSpec extends Specification {
 			// numbers
 			[1, 2, 3]       | 4          || [1, 2, 3, 4]
 			[1, 2, 3]       | 2          || [1, 4, 3]
+	}
+	
+	@Unroll
+	def "Should be capable of appending different string elements to the internal list"() {
+		given: 'an instance of an AggregationList'
+			def aggregator = new Object() as AggregationList<String>
+		and: 'initialize it'
+			aggregator.list = initialList
+		when:
+			aggregator << newElement
+		then:
+			aggregator.list == expected
+		where:
+			initialList     | newElement || expected
 			// letters
 			['a', 'b', 'c'] | 'd'        || ['a', 'b', 'c', 'd']
 			['a', 'b', 'c'] | 'b'        || ['a', 'bb', 'c']
@@ -41,9 +55,9 @@ class AggregationListUSpec extends Specification {
 
 	def "Should refuse to add two different object"() {
 		given:
-			def a = new IdObject(id: 'a')
+			def a = new IdObject<Integer>(id: 'a')
 		and:
-			def b = new IdObject(id: 'b')
+			def b = new IdObject<Integer>(id: 'b')
 		when:
 			a + b
 		then:
@@ -52,11 +66,32 @@ class AggregationListUSpec extends Specification {
 	}
 
 	@Unroll
-	def "Should be capable of summing with another AggregationList"() {
+	def "Should be capable of summing with another AggregationList with integers"() {
 		given:
-			def left = new IdObject(id: 'id')
+			def left = new IdObject<Integer>(id: 'id')
 		and:
-			def right = new IdObject(id: 'id')
+			def right = new IdObject<Integer>(id: 'id')
+		and: 'initialize it'
+			left.list = leftList
+			right.list = rightList
+		when:
+			def result = left + right
+		then:
+			result.list == expected
+		where:
+			leftList        | rightList   || expected
+			// numbers
+			[1, 2, 3]       | [4, 5, 6]   || [1, 2, 3, 4, 5, 6]
+			[1, 2, 3]       | [1, 2]      || [2, 4, 3]
+			[1, 2, 3]       | [1, 2, 1]   || [3, 4, 3]
+	}
+
+	@Unroll
+	def "Should be capable of summing with another AggregationList with strings"() {
+		given:
+			def left = new IdObject<String>(id: 'id')
+		and:
+			def right = new IdObject<String>(id: 'id')
 		and: 'initialize it'
 			left.list = leftList
 			right.list = rightList
@@ -66,17 +101,52 @@ class AggregationListUSpec extends Specification {
 			result.list == expected
 		where:
 			leftList        | rightList            || expected
-			// numbers
-			[1, 2, 3]       | [4, 5, 6]            || [1, 2, 3, 4, 5, 6]
-			[1, 2, 3]       | [1, 2]               || [2, 4, 3]
-			[1, 2, 3]       | [1, 2, 1]            || [3, 4, 3]
 			// letters
 			['a', 'b', 'c'] | ['d', 'e', 'f']      || ['a', 'b', 'c', 'd', 'e', 'f']
 			['a', 'b', 'c'] | ['a', 'b', 'c', 'd'] || ['aa', 'bb', 'cc', 'd']
 			['a', 'b', 'c'] | ['a', 'b', 'a', 'd'] || ['aaa', 'bb', 'c', 'd']
 	}
 
-	@EqualsAndHashCode(includes='id')
-	class IdObject implements AggregationList { String id }
+	def "Should work with custom Summable objects"() {
+		given: 'two AggregationList instances with custom Summable objects'
+			def left = new IdObject<TestValue>(id: 'id')
+			def right = new IdObject<TestValue>(id: 'id')
+		
+		and: 'populated with test values'
+			def val1 = new TestValue(name: 'one', value: 1)
+			def val2 = new TestValue(name: 'two', value: 2)
+			def val3 = new TestValue(name: 'three', value: 3)
+			def val1Duplicate = new TestValue(name: 'one', value: 10)
+			
+			left.list = [val1, val2]
+			right.list = [val1Duplicate, val3]
+		
+		when: 'adding them together'
+			def result = left + right
+			
+		then: 'the values should be properly aggregated'
+			result.list.size() == 3
+			result.list[0].name == 'one'
+			result.list[0].value == 11 // 1 + 10
+			result.list[1].name == 'two'
+			result.list[1].value == 2
+			result.list[2].name == 'three'
+			result.list[2].value == 3
+	}
 
+	@EqualsAndHashCode(includes='id')
+	class IdObject<T> implements AggregationList<T> { 
+		String id 
+	}
+	
+	@ToString(includeFields = true, includePackage = false)
+	@EqualsAndHashCode(includes = ['name'])
+	class TestValue implements Summable<TestValue> {
+		String name
+		int value
+		
+		TestValue plus(TestValue other) {
+			return new TestValue(name: this.name, value: this.value + other.value)
+		}
+	}
 }

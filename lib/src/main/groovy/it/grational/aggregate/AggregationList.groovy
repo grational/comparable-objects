@@ -1,11 +1,11 @@
 package it.grational.aggregate
 
-trait AggregationList implements Cloneable {
+trait AggregationList<T> implements Cloneable {
 	
-	List list = []
+	List<T> list = []
 
 	def leftShift(elem) {
-		Integer idx = this.list.findIndexOf { it == elem }
+		int idx = this.list.findIndexOf { it == elem }
 		if ( idx >= 0 ) {
 			this.list[idx] += elem
 		} else {
@@ -13,19 +13,19 @@ trait AggregationList implements Cloneable {
 		}
 	}
 
-	def plus(AggregationList other) {
+	def plus(AggregationList<T> other) {
 		if ( this != other )
 			throw new IllegalArgumentException("[${this.class.simpleName}] Cannot add different objects!")
 
 		List temp = this.list
 		this.list = this.aggregate(other)
-		AggregationList result = this.clone()
+		AggregationList<T> result = this.clone()
 		this.list = temp
 
 		return result
 	}
 
-	List aggregate(AggregationList other) {
+	List<T> aggregate(AggregationList<T> other) {
 		def result = []
 		this.list.eachWithIndex { elem, idx -> 
 			result[idx] = elem
@@ -37,9 +37,9 @@ trait AggregationList implements Cloneable {
 
 	@Override
 	Object clone() {
-		AggregationList cloned = (AggregationList) super.clone()
-		// Deep copy della lista
-		cloned.list = new ArrayList(this.list)
+		AggregationList<T> cloned = (AggregationList<T>) super.clone()
+		// just a first level list deep copy
+		cloned.list = new ArrayList<T>(this.list)
 		return cloned
 	}
 }
