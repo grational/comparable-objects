@@ -81,4 +81,13 @@ trait AggregationList<T> implements Cloneable {
 	def findAll(Closure closure) {
 		list.findAll(closure)
 	}
+	def any(Closure closure) {
+		list.any(closure)
+	}
+	def every(Closure closure) {
+		list.every(closure)
+	}
+	def none(Closure closure) {
+		!any(closure)
+	}
 }

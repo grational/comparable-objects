@@ -228,6 +228,39 @@ class AggregationListUSpec extends Specification {
 		then: 'the result should be as expected'
 			mapped == [3, 6, 9, 12, 15]
 	}
+	
+	def "Should correctly delegate findAll, any, and every methods"() {
+		given: 'an AggregationList with mixed elements'
+			def aggregator = new IdObject<Integer>(id: 'id')
+			aggregator.list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+			
+		expect: 'findAll should correctly filter elements'
+			aggregator.findAll { it % 2 == 0 } == [2, 4, 6, 8, 10]
+			aggregator.findAll { it > 7 } == [8, 9, 10]
+			
+		and: 'any should correctly check if any element matches the condition'
+			aggregator.any { it > 9 }
+			aggregator.any { it % 7 == 0 }
+			!aggregator.any { it < 0 }
+			
+		and: 'every should correctly check if all elements match the condition'
+			aggregator.every { it > 0 }
+			aggregator.every { it <= 10 }
+			!aggregator.every { it % 2 == 0 }
+	}
+	
+	def "Should correctly delegate none method"() {
+		given: 'an AggregationList with mixed elements'
+			def aggregator = new IdObject<Integer>(id: 'id')
+			aggregator.list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+			
+		expect: 'none should correctly check if no element matches the condition'
+			// Test that all elements don't satisfy the condition
+			aggregator.none { it > 10 } == true
+			aggregator.none { it == 0 } == true
+			// Test that at least one element satisfies the condition
+			aggregator.none { it % 2 == 0 } == false
+	}
 
 	@EqualsAndHashCode(includes='id')
 	class IdObject<T> implements AggregationList<T> { 
