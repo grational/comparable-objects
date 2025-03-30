@@ -135,6 +135,10 @@ A trait that enables collections to intelligently aggregate elements by merging 
 - Combines duplicate elements by calling their `+` method
 - Supports full list merge with the `+` operator
 - Enables left join with the `leftJoin` method
+- Delegates collection operations to the internal list, allowing direct access to methods like:
+  - `size()`, `isEmpty()`, `contains()`
+  - `each()`, `collect()`, `findAll()`
+  - `sum()`, `max()`, `min()`, `count()`
 
 #### Example
 
@@ -210,9 +214,13 @@ q2 << new Revenue("IT", 75000.00)
 q1 << new Revenue("Sales", 5000.00)
 assert q1.list[0].amount == 105000.00
 
+// Use delegated methods directly
+assert q1.size() == 2
+assert q1.contains(new Revenue("Sales", 0)) // Only compares department due to equals implementation
+
 // Full join using + operator
 def combined = q1 + q2
-assert combined.list.size() == 3
+assert combined.size() == 3 // Using delegated size() method
 assert combined.list.any { it.department == "Sales" && it.amount == 225000.00 }
 assert combined.list.any { it.department == "Marketing" && it.amount == 50000.00 }
 assert combined.list.any { it.department == "IT" && it.amount == 75000.00 }
@@ -356,6 +364,7 @@ intAggregator << 2
 intAggregator << 1  // Will be summed with the existing 1
 
 assert intAggregator.list == [2, 2]  // The first 1 was increased to 2
+assert intAggregator.sum() == 4      // Using delegated sum() method
 
 // Type-safe aggregator for strings
 def stringAggregator = new Aggregator<String>("words")

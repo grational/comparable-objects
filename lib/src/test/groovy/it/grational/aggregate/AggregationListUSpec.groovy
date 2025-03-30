@@ -199,6 +199,35 @@ class AggregationListUSpec extends Specification {
 			result.list[1].name == 'two'
 			result.list[1].value == 2
 	}
+	
+	def "Should delegate list operations to the internal list"() {
+		given: 'an AggregationList with elements'
+			def aggregator = new IdObject<Integer>(id: 'id')
+			aggregator.list = [1, 2, 3, 4, 5]
+			
+		expect: 'delegated methods to work correctly'
+			aggregator.size() == 5
+			!aggregator.isEmpty()
+			aggregator.contains(3)
+			!aggregator.contains(10)
+			aggregator.sum() == 15
+			aggregator.max() == 5
+			aggregator.min() == 1
+			aggregator.count { it % 2 == 0 } == 2 // count even numbers
+			
+		when: 'using iteration methods'
+			def result = []
+			aggregator.each { result << it * 2 }
+			
+		then: 'the iteration should work as expected'
+			result == [2, 4, 6, 8, 10]
+			
+		when: 'using collect method'
+			def mapped = aggregator.collect { it * 3 }
+			
+		then: 'the result should be as expected'
+			mapped == [3, 6, 9, 12, 15]
+	}
 
 	@EqualsAndHashCode(includes='id')
 	class IdObject<T> implements AggregationList<T> { 

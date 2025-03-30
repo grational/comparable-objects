@@ -2,6 +2,8 @@ package it.grational.aggregate
 
 trait AggregationList<T> implements Cloneable {
 	
+	// Delegating to List for basic collection operations
+	@Delegate(methodAnnotations=true, interfaces=false)
 	List<T> list = []
 
 	def leftShift(elem) {
@@ -62,5 +64,21 @@ trait AggregationList<T> implements Cloneable {
 		// just a first level list deep copy
 		cloned.list = new ArrayList<T>(this.list)
 		return cloned
+	}
+	
+	// NOTE: explicitly delegate to the list for these groovy extension methods
+	// to avoid conflicts with the trait methods
+	def sum() { list.sum() }
+	def max() { list.max() }
+	def min() { list.min() }
+	
+	def count(Closure closure) { 
+		list.count(closure) 
+	}
+	def collect(Closure closure) {
+		list.collect(closure)
+	}
+	def findAll(Closure closure) {
+		list.findAll(closure)
 	}
 }
