@@ -1,3 +1,0 @@
-= comparable-objects
-
-Classes used to ease objects comparisons
