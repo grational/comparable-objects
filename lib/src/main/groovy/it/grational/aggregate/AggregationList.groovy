@@ -25,6 +25,18 @@ trait AggregationList<T> implements Cloneable {
 		return result
 	}
 
+	def leftJoin(AggregationList<T> other) {
+		if ( this != other )
+			throw new IllegalArgumentException("[${this.class.simpleName}] Cannot join different objects!")
+
+		List temp = this.list
+		this.list = this.leftAggregate(other)
+		AggregationList<T> result = this.clone()
+		this.list = temp
+
+		return result
+	}
+
 	List<T> aggregate(AggregationList<T> other) {
 		def result = []
 		this.list.eachWithIndex { elem, idx -> 
@@ -32,6 +44,15 @@ trait AggregationList<T> implements Cloneable {
 			other.list.grep { it == elem }?.each { result[idx] += it }
 		}
 		result.addAll(other.list - this.list)
+		return result
+	}
+
+	List<T> leftAggregate(AggregationList<T> other) {
+		def result = []
+		this.list.eachWithIndex { elem, idx -> 
+			result[idx] = elem
+			other.list.grep { it == elem }?.each { result[idx] += it }
+		}
 		return result
 	}
 

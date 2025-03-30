@@ -133,6 +133,72 @@ class AggregationListUSpec extends Specification {
 			result.list[2].name == 'three'
 			result.list[2].value == 3
 	}
+	
+	@Unroll
+	def "Should be capable of leftJoining with another AggregationList with integers"() {
+		given:
+			def left = new IdObject<Integer>(id: 'id')
+		and:
+			def right = new IdObject<Integer>(id: 'id')
+		and: 'initialize it'
+			left.list = leftList
+			right.list = rightList
+		when:
+			def result = left.leftJoin(right)
+		then:
+			result.list == expected
+		where:
+			leftList        | rightList   || expected
+			[1, 2, 3]       | [4, 5, 6]   || [1, 2, 3]
+			[1, 2, 3]       | [1, 2]      || [2, 4, 3]
+			[1, 2, 3]       | [1, 2, 1]   || [3, 4, 3]
+			[1, 2]          | [2, 3, 4]   || [1, 4]
+	}
+
+	@Unroll
+	def "Should be capable of leftJoining with another AggregationList with strings"() {
+		given:
+			def left = new IdObject<String>(id: 'id')
+		and:
+			def right = new IdObject<String>(id: 'id')
+		and: 'initialize it'
+			left.list = leftList
+			right.list = rightList
+		when:
+			def result = left.leftJoin(right)
+		then:
+			result.list == expected
+		where:
+			leftList        | rightList            || expected
+			['a', 'b']      | ['b', 'c', 'd']      || ['a', 'bb']
+			['a', 'b', 'c'] | ['d', 'e', 'f']      || ['a', 'b', 'c']
+			['a', 'b', 'c'] | ['a', 'b', 'c', 'd'] || ['aa', 'bb', 'cc']
+	}
+	
+	def "Should work with custom Summable objects using leftJoin"() {
+		given: 'two AggregationList instances with custom Summable objects'
+			def left = new IdObject<TestValue>(id: 'id')
+			def right = new IdObject<TestValue>(id: 'id')
+		
+		and: 'populated with test values'
+			def val1 = new TestValue(name: 'one', value: 1)
+			def val2 = new TestValue(name: 'two', value: 2)
+			def val3 = new TestValue(name: 'three', value: 3)
+			def val1Duplicate = new TestValue(name: 'one', value: 10)
+			
+			left.list = [val1, val2]
+			right.list = [val1Duplicate, val3]
+		
+		when: 'left joining them'
+			def result = left.leftJoin(right)
+			
+		then: 'only values from left list should be included with matching values merged'
+			result.list.size() == 2
+			result.list[0].name == 'one'
+			result.list[0].value == 11 // 1 + 10
+			result.list[1].name == 'two'
+			result.list[1].value == 2
+	}
 
 	@EqualsAndHashCode(includes='id')
 	class IdObject<T> implements AggregationList<T> { 
