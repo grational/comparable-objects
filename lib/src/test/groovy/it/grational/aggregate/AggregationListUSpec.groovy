@@ -234,7 +234,11 @@ class AggregationListUSpec extends Specification {
 			def aggregator = new IdObject<Integer>(id: 'id')
 			aggregator.list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 			
-		expect: 'findAll should correctly filter elements'
+		expect: 'find should correctly filter elements'
+			aggregator.find { it % 2 == 0 } == 2
+			aggregator.find { it > 7 } == 8
+
+		and: 'findAll should correctly filter elements'
 			aggregator.findAll { it % 2 == 0 } == [2, 4, 6, 8, 10]
 			aggregator.findAll { it > 7 } == [8, 9, 10]
 			
@@ -274,7 +278,10 @@ class AggregationListUSpec extends Specification {
 		int value
 		
 		TestValue plus(TestValue other) {
-			return new TestValue(name: this.name, value: this.value + other.value)
+			return new TestValue (
+				name: this.name,
+				value: this.value + other.value
+			)
 		}
 	}
 }

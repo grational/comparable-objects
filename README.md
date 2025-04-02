@@ -63,12 +63,12 @@ import it.grational.compare.ComparableArray
 // Create a class that implements ComparableArray
 class Version implements ComparableArray {
     private final String version
-    
+
     Version(String version) {
         this.version = version
         this.array = version.split('\\.').collect { it as Integer } as Object[]
     }
-    
+
     @Override
     String toString() {
         return version
@@ -103,16 +103,16 @@ import it.grational.aggregate.Summable
 
 class Counter implements Summable<Counter> {
     int count
-    
+
     Counter(int count) {
         this.count = count
     }
-    
+
     @Override
     Counter plus(Counter other) {
         return new Counter(this.count + other.count)
     }
-    
+
     @Override
     String toString() {
         return "Counter($count)"
@@ -137,7 +137,7 @@ A trait that enables collections to intelligently aggregate elements by merging 
 - Enables left join with the `leftJoin` method
 - Delegates collection operations to the internal list, allowing direct access to methods like:
   - `size()`, `isEmpty()`, `contains()`
-  - `each()`, `collect()`, `findAll()`
+  - `each()`, `collect()`, `find()`, `findAll()`
   - `sum()`, `max()`, `min()`, `count()`
 
 #### Example
@@ -150,12 +150,12 @@ import it.grational.aggregate.Summable
 class Revenue implements Summable<Revenue> {
     String department
     BigDecimal amount
-    
+
     Revenue(String department, BigDecimal amount) {
         this.department = department
         this.amount = amount
     }
-    
+
     @Override
     Revenue plus(Revenue other) {
         if (department != other.department) {
@@ -163,18 +163,18 @@ class Revenue implements Summable<Revenue> {
         }
         return new Revenue(department, amount + other.amount)
     }
-    
+
     @Override
     boolean equals(Object obj) {
         if (!(obj instanceof Revenue)) return false
         return department == obj.department
     }
-    
+
     @Override
     int hashCode() {
         return department.hashCode()
     }
-    
+
     @Override
     String toString() {
         return "$department: \$${amount}"
@@ -184,17 +184,17 @@ class Revenue implements Summable<Revenue> {
 // Create a class that implements AggregationList
 class RevenueReport implements AggregationList<Revenue> {
     String id
-    
+
     RevenueReport(String id) {
         this.id = id
     }
-    
+
     @Override
     boolean equals(Object obj) {
         if (!(obj instanceof RevenueReport)) return false
         return id == obj.id
     }
-    
+
     @Override
     int hashCode() {
         return id.hashCode()
@@ -251,12 +251,12 @@ import it.grational.aggregate.Summable
 class DataPoint implements Summable<DataPoint> {
     String key
     double value
-    
+
     DataPoint(String key, double value) {
         this.key = key
         this.value = value
     }
-    
+
     @Override
     DataPoint plus(DataPoint other) {
         if (key != other.key) {
@@ -264,18 +264,18 @@ class DataPoint implements Summable<DataPoint> {
         }
         return new DataPoint(key, value + other.value)
     }
-    
+
     @Override
     boolean equals(Object obj) {
         if (!(obj instanceof DataPoint)) return false
         return key == obj.key
     }
-    
+
     @Override
     int hashCode() {
         return key.hashCode()
     }
-    
+
     @Override
     String toString() {
         return "$key: $value"
@@ -328,18 +328,18 @@ class Product implements Summable<Product> {
     String sku
     String name
     int quantity
-    
+
     @Override
     boolean equals(Object obj) {
         if (!(obj instanceof Product)) return false
         return sku == obj.sku  // Products are equal if they have the same SKU
     }
-    
+
     @Override
     int hashCode() {
         return sku.hashCode()
     }
-    
+
     @Override
     Product plus(Product other) {
         if (sku != other.sku) {

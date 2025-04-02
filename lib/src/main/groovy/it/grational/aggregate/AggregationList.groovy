@@ -6,7 +6,7 @@ trait AggregationList<T> implements Cloneable {
 	@Delegate(methodAnnotations=true, interfaces=false)
 	List<T> list = []
 
-	def leftShift(elem) {
+	void leftShift(elem) {
 		int idx = this.list.findIndexOf { it == elem }
 		if ( idx >= 0 ) {
 			this.list[idx] += elem
@@ -15,7 +15,7 @@ trait AggregationList<T> implements Cloneable {
 		}
 	}
 
-	def plus(AggregationList<T> other) {
+	AggregationList<T> plus(AggregationList<T> other) {
 		if ( this != other )
 			throw new IllegalArgumentException("[${this.class.simpleName}] Cannot add different objects!")
 
@@ -27,7 +27,7 @@ trait AggregationList<T> implements Cloneable {
 		return result
 	}
 
-	def leftJoin(AggregationList<T> other) {
+	AggregationList<T> leftJoin(AggregationList<T> other) {
 		if ( this != other )
 			throw new IllegalArgumentException("[${this.class.simpleName}] Cannot join different objects!")
 
@@ -66,28 +66,32 @@ trait AggregationList<T> implements Cloneable {
 		return cloned
 	}
 	
-	// NOTE: explicitly delegate to the list for these groovy extension methods
+	// NOTE: explicitly delegate to the list 
+	// for these groovy extension methods 
 	// to avoid conflicts with the trait methods
-	def sum() { list.sum() }
-	def max() { list.max() }
-	def min() { list.min() }
+	T sum() { list.sum() }
+	T max() { list.max() }
+	T min() { list.min() }
 	
-	def count(Closure closure) { 
+	int count(Closure closure) { 
 		list.count(closure) 
 	}
-	def collect(Closure closure) {
+	T find(Closure closure) {
+		list.find(closure)
+	}
+	List<T> collect(Closure closure) {
 		list.collect(closure)
 	}
-	def findAll(Closure closure) {
+	List<T> findAll(Closure closure) {
 		list.findAll(closure)
 	}
-	def any(Closure closure) {
+	boolean any(Closure closure) {
 		list.any(closure)
 	}
-	def every(Closure closure) {
+	boolean every(Closure closure) {
 		list.every(closure)
 	}
-	def none(Closure closure) {
+	boolean none(Closure closure) {
 		!any(closure)
 	}
 }
