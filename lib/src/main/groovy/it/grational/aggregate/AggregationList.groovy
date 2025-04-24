@@ -76,14 +76,14 @@ trait AggregationList<T> implements Cloneable {
 	int count(Closure closure) { 
 		list.count(closure) 
 	}
-	<R> R find(Closure<R> closure) {
+	T find(Closure closure) {
 		list.find(closure)
+	}
+	List<T> findAll(Closure closure) {
+		list.findAll(closure)
 	}
 	<R> List<R> collect(Closure<R> closure) {
 		list.collect(closure)
-	}
-	<R> List<R> findAll(Closure<R> closure) {
-		list.findAll(closure)
 	}
 	boolean any(Closure closure) {
 		list.any(closure)
