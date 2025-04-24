@@ -6,7 +6,7 @@ trait AggregationList<T> implements Cloneable {
 	@Delegate(methodAnnotations=true, interfaces=false)
 	List<T> list = []
 
-	void leftShift(elem) {
+	void leftShift(T elem) {
 		int idx = this.list.findIndexOf { it == elem }
 		if ( idx >= 0 ) {
 			this.list[idx] += elem
@@ -76,13 +76,13 @@ trait AggregationList<T> implements Cloneable {
 	int count(Closure closure) { 
 		list.count(closure) 
 	}
-	T find(Closure closure) {
+	<R> R find(Closure<R> closure) {
 		list.find(closure)
 	}
-	List<T> collect(Closure closure) {
+	<R> List<R> collect(Closure<R> closure) {
 		list.collect(closure)
 	}
-	List<T> findAll(Closure closure) {
+	<R> List<R> findAll(Closure<R> closure) {
 		list.findAll(closure)
 	}
 	boolean any(Closure closure) {
